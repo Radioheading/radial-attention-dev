@@ -1,0 +1,30 @@
+diff --git a/flashinfer/sparse.py b/flashinfer/sparse.py
+index c2cc75b..62a6e5e 100644
+--- a/flashinfer/sparse.py
++++ b/flashinfer/sparse.py
+@@ -133,7 +133,7 @@ class BlockSparseAttentionWrapper:
+         if backend in ["fa3", "auto"]:
+             # NOTE(Zihao): assume maximum accumulate kv length is 4M
+             self._vector_sparse_indices_buffer = torch.empty(
+-                (4 * 1024 * 1024,), dtype=torch.int32, device=self.device
++                (128 * 1024 * 1024,), dtype=torch.int32, device=self.device
+             )
+             # NOTE(Zihao): assume maximum batch size is 32768
+             self._vector_sparse_indptr_buffer = torch.empty(
+@@ -727,7 +727,7 @@ class VariableBlockSparseAttentionWrapper:
+         if backend in ["fa3", "auto"]:
+             # NOTE(Zihao): assume maximum accumulate kv length is 4M
+             self._vector_sparse_indices_buffer = torch.empty(
+-                (4 * 1024 * 1024,), dtype=torch.int32, device=self.device
++                (128 * 1024 * 1024,), dtype=torch.int32, device=self.device
+             )
+             # NOTE(Zihao): assume maximum batch size is 32768
+             self._vector_sparse_indptr_buffer = torch.empty(
+@@ -868,6 +868,7 @@ class VariableBlockSparseAttentionWrapper:
+             dim=0,
+         )
+         qo_indptr = qo_indptr_host.to(block_mask_map.device, non_blocking=non_blocking)
++        qo_indptr_host = qo_indptr_host.to("cpu")
+         last_block_len = torch.full(
+             (num_blocks_row * num_kv_heads,),
+             1,
