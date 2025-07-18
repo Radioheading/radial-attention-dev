@@ -72,17 +72,17 @@ We recommend using CUDA versions 12.4 + Pytorch versions 2.5.1
 conda create -n radial python==3.12 -y
 conda activate radial
 
-# 2. Install PyTorch
-pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu124
-
-# 3. Install pip dependencies from CogVideoX and HunyuanVideo
+# 2. Install pip dependencies (including torch, flash_attn and other packages)
 pip install -r requirements.txt
-pip install flash-attn --no-build-isolation
 
-# 4. Install FlashInfer for fast and hardware-friendly inference
-pip install flashinfer-python -i https://flashinfer.ai/whl/cu124/torch2.5/
+# 3. Install FlashInfer for fast and hardware-friendly inference
+cd third_party/flashinfer
+git checkout e20978e0536c96d92f57461e55a6a6a387967358
+git apply ../../assets/radial-attn-flashinfer.patch
+pip install --no-build-isolation --verbose .
+cd ../..
 
-# 5. (Optional) Install Sparse_SageAttention for further acceleration
+# 4. (Optional) Install Sparse_SageAttention for further acceleration
 cd third_party/sparse_sageattn
 python setup.py install
 cd ../..
