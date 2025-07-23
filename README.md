@@ -119,11 +119,11 @@ bash scripts/hunyuan_t2v_inference.sh
 ## 📕Open-source Plan
 
 - [x] Integrate [Wan2.1_14B_FusionX LoRA](https://huggingface.co/vrgamedevgirl84/Wan14BT2VFusioniX) for high-quality few-step generation
-- [ ] Adopt [Sparse-VideoGen](https://github.com/svg-project/Sparse-VideoGen/tree/main)'s fused kernels for further speedup
+- [x] Integrate [SageAttention](https://github.com/thu-ml/SageAttention) for more efficient low-bit attention
 - [ ] ComfyUI integration (in [ComfyUI-nunchaku](https://github.com/mit-han-lab/ComfyUI-nunchaku))
-- [ ] Support Mochi-1
 - [ ] Support Multi-GPU inference
 - [ ] Release LoRA checkpoints for longer-video generation
+- [ ] Adopt [Sparse-VideoGen](https://github.com/svg-project/Sparse-VideoGen/tree/main)'s fused kernels for further speedup
 
 ## 📚Citation
 
